@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Text?>
+
+
+<Pane fx:controller="StockController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TabPane layoutX="41.0" layoutY="87.0" prefHeight="277.0" prefWidth="518.0" style="-fx-border-color: black;" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Daily">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="dailyView" prefHeight="246.0" prefWidth="518.0">
+                          <columns>
+                            <TableColumn fx:id="rowTitle1" prefWidth="75.0" text="Titles" />
+                            <TableColumn fx:id="day1" prefWidth="75.0" text="Day 1" />
+                            <TableColumn fx:id="day2" prefWidth="75.0" text="Day 2" />
+                            <TableColumn fx:id="day3" prefWidth="75.0" text="Day 3" />
+                            <TableColumn fx:id="day4" prefWidth="75.0" text="Day 4" />
+                            <TableColumn fx:id="day5" prefWidth="75.0" text="Day 5" />
+                            <TableColumn fx:id="day6" prefWidth="75.0" text="Day 6" />
+                            <TableColumn fx:id="day7" prefWidth="75.0" text="Day 7" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Weekly">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="weeklyView" prefHeight="246.0" prefWidth="518.0">
+                          <columns>
+                          	<TableColumn fx:id="rowTitle2" prefWidth="75.0" text="Titles" />
+                            <TableColumn fx:id="week1" prefWidth="75.0" text="Week 1" />
+                            <TableColumn fx:id="week2" prefWidth="75.0" text="Week 2" />
+                            <TableColumn fx:id="week3" prefWidth="75.0" text="Week 3" />
+                            <TableColumn fx:id="week4" prefWidth="75.0" text="Week 4" />
+                            <TableColumn fx:id="week5" prefWidth="75.0" text="Week 5" />
+                            <TableColumn fx:id="week6" prefWidth="75.0" text="Week 6" />
+                            <TableColumn fx:id="week7" prefWidth="75.0" text="Week 7" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Monthly">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="monthlyView" prefHeight="246.0" prefWidth="518.0">
+                          <columns>
+                          	<TableColumn fx:id="rowTitle3" prefWidth="75.0" text="Titles" />
+                            <TableColumn fx:id="month1" prefWidth="75.0" text="Month 1" />
+                            <TableColumn fx:id="month2" prefWidth="75.0" text="Month 2" />
+                            <TableColumn fx:id="month3" prefWidth="75.0" text="Month 3" />
+                            <TableColumn fx:id="month4" prefWidth="75.0" text="Month 4" />
+                            <TableColumn fx:id="month5" prefWidth="75.0" text="Month 5" />
+                            <TableColumn fx:id="month6" prefWidth="75.0" text="Month 6" />
+                            <TableColumn fx:id="month7" prefWidth="75.0" text="Month 7" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <Text fx:id="txtTimeZone" layoutX="407.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TimeZone:" />
+      <TextField fx:id="txtStockSymbol" layoutX="151.0" layoutY="47.0" />
+      <Text layoutX="41.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Stock Symbol" />
+      <Text layoutX="41.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Veniamin Lebich CSCI 13 Final Project" />
+      <Button layoutX="321.0" layoutY="47.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Search" />
+   </children>
+</Pane>
