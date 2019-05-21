@@ -12,8 +12,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
+// stock controller class, used to get the model data
+// and then put it in the view on events
 public class StockController implements Initializable {
 
+	// init vars used throughout the controlelr
 	private boolean searching = false;
 	private StockModel stock = new StockModel();
 	double[][] dailyData;
@@ -95,39 +98,52 @@ public class StockController implements Initializable {
 	@FXML
 	private void handleButtonAction(ActionEvent e) {
 
+		// count the amount of time since the
+		// last api request
 		tEnd = System.currentTimeMillis();
 		tDelta = tEnd - tStart;
 		elapsedSeconds = tDelta / 1000.0;
 
-		System.out.println(elapsedSeconds);
-
-		System.out.println("Handled Action");
+		// gets the given stock symbol
 		String symbol = txtStockSymbol.getText();
+		// makes sure symbol is upper case
 		symbol = symbol.toUpperCase();
+		// reset the symbol to upper case
 		txtStockSymbol.setText(symbol);
-		// Use the model to get the weather information
 
-		System.out.println(symbol);
-
+		// check if app is already searching and that time since last api request
+		// isn't less than 60 sec
 		if (!searching && elapsedSeconds > 60) {
+
+			// reset the counter
 			tStart = System.currentTimeMillis();
+			// set the app to be searching
 			searching = true;
-			System.out.println("Now Searching");
+
+			// check if the symbol is valid
 			symbolValid = stock.isValid(symbol);
 			if (symbolValid == 1) { // valid stock
+
+				// get all the daily/weekly/monthly stock data
 				dailyData = stock.getDaily(symbol);
 				weeklyData = stock.getWeekly(symbol);
 				monthlyData = stock.getMonthly(symbol);
 
+				// check if all the requests were successful
 				if (stock.allRequestsCompleted()) {
 
+					// clear the tables
 					dailyView.getItems().clear();
 					weeklyView.getItems().clear();
 					monthlyView.getItems().clear();
 
+					// set the timezone
 					txtTimeZone.setText("TimeZone: " + stock.getTimeZone());
+
+					// build the row titles for the daily view
 					rowTitle1.setCellValueFactory(new PropertyValueFactory<StockColumns, String>("column0"));
-					// style and clean up data
+
+					// style the rows and add the text to the rows
 					rowTitle1.setCellFactory(column -> {
 						return new TableCell<StockColumns, String>() {
 							@Override
@@ -167,9 +183,10 @@ public class StockController implements Initializable {
 						};
 					});
 
+					// build the row titles for the weekly view
 					rowTitle2.setCellValueFactory(new PropertyValueFactory<StockColumns, String>("column0"));
 
-					// style and clean up data
+					// style the rows and add the text to the rows
 					rowTitle2.setCellFactory(column -> {
 						return new TableCell<StockColumns, String>() {
 							@Override
@@ -209,9 +226,10 @@ public class StockController implements Initializable {
 						};
 					});
 
+					// build the row titles for the monthly view
 					rowTitle3.setCellValueFactory(new PropertyValueFactory<StockColumns, String>("column0"));
 
-					// style and clean up data
+					// style the rows and add the text to the rows
 					rowTitle3.setCellFactory(column -> {
 						return new TableCell<StockColumns, String>() {
 							@Override
@@ -251,8 +269,7 @@ public class StockController implements Initializable {
 						};
 					});
 
-					// dump data into tables
-
+					// map the days to their respective columns
 					day1.setCellValueFactory(new PropertyValueFactory<StockColumns, Double>("column1"));
 					day2.setCellValueFactory(new PropertyValueFactory<StockColumns, Double>("column2"));
 					day3.setCellValueFactory(new PropertyValueFactory<StockColumns, Double>("column3"));
@@ -260,6 +277,8 @@ public class StockController implements Initializable {
 					day5.setCellValueFactory(new PropertyValueFactory<StockColumns, Double>("column5"));
 					day6.setCellValueFactory(new PropertyValueFactory<StockColumns, Double>("column6"));
 					day7.setCellValueFactory(new PropertyValueFactory<StockColumns, Double>("column7"));
+
+					// add the data to the columns using the StockColumns class
 					for (int i = 0; i < 5; i++) {
 						dailyView.getItems().add(new StockColumns("temp", dailyData[0][i], dailyData[1][i],
 								dailyData[2][i], dailyData[3][i], dailyData[4][i], dailyData[5][i], dailyData[6][i]));
@@ -518,6 +537,7 @@ public class StockController implements Initializable {
 						};
 					});
 
+					// map the weeks to their respective columns
 					week1.setCellValueFactory(new PropertyValueFactory<StockColumns, Double>("column1"));
 					week2.setCellValueFactory(new PropertyValueFactory<StockColumns, Double>("column2"));
 					week3.setCellValueFactory(new PropertyValueFactory<StockColumns, Double>("column3"));
@@ -525,6 +545,8 @@ public class StockController implements Initializable {
 					week5.setCellValueFactory(new PropertyValueFactory<StockColumns, Double>("column5"));
 					week6.setCellValueFactory(new PropertyValueFactory<StockColumns, Double>("column6"));
 					week7.setCellValueFactory(new PropertyValueFactory<StockColumns, Double>("column7"));
+
+					// add the data to the columns using the StockColumns class
 					for (int i = 0; i < 5; i++) {
 						weeklyView.getItems()
 								.add(new StockColumns("temp", weeklyData[0][i], weeklyData[1][i], weeklyData[2][i],
@@ -784,6 +806,7 @@ public class StockController implements Initializable {
 						};
 					});
 
+					// map the months to their respective columns
 					month1.setCellValueFactory(new PropertyValueFactory<StockColumns, Double>("column1"));
 					month2.setCellValueFactory(new PropertyValueFactory<StockColumns, Double>("column2"));
 					month3.setCellValueFactory(new PropertyValueFactory<StockColumns, Double>("column3"));
@@ -791,6 +814,8 @@ public class StockController implements Initializable {
 					month5.setCellValueFactory(new PropertyValueFactory<StockColumns, Double>("column5"));
 					month6.setCellValueFactory(new PropertyValueFactory<StockColumns, Double>("column6"));
 					month7.setCellValueFactory(new PropertyValueFactory<StockColumns, Double>("column7"));
+
+					// add the data to the columns using the StockColumns class
 					for (int i = 0; i < 5; i++) {
 						monthlyView.getItems()
 								.add(new StockColumns("temp", monthlyData[0][i], monthlyData[1][i], monthlyData[2][i],
@@ -1050,6 +1075,8 @@ public class StockController implements Initializable {
 						};
 					});
 
+					// make sure the columns aren't sortable
+					// since each column holds 5 differen't types of data
 					day1.setSortable(false);
 					day2.setSortable(false);
 					day3.setSortable(false);
@@ -1075,24 +1102,32 @@ public class StockController implements Initializable {
 					month7.setSortable(false);
 
 				} else {
+					// all requests weren't completed
+					// have user wait 1 min
 					txtTimeZone.setText("All API Requests not completed due to limit\nLimit: 5 requests per min");
 				}
+				// searching completed
 				searching = false;
 
 			} else if (symbolValid == 2) {
+				// validation failed check due to overload
+				// have user wait 1 min
 				txtTimeZone.setText("All API Requests not completed due to limit\nLimit: 5 requests per min");
+				// searching completed
 				searching = false;
 			} else { // invalid stock
-
+				// stock isn't valid
 				txtTimeZone.setText("Invalid Stock Symbol!");
+				// searching completed
 				searching = false;
 			}
 		} else {
+			// have user wait 1 min between each request
+			// this prevents overload
+			// display the time left
 			txtTimeZone.setText(String.format("Must wait 1 minute inbetween requests\nTime Remaining: (%.0fs)",
 					60 - elapsedSeconds));
 		}
-
-		System.out.println("================");
 
 	}
 

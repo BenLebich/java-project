@@ -1,7 +1,12 @@
 
+// stock column class used to
+// build the columns in the table view
 public class StockColumns {
 
+	// row lables
 	private String column0 = null;
+
+	// days/weeks/months (1-7)
 	private Double column1 = null;
 	private Double column2 = null;
 	private Double column3 = null;
